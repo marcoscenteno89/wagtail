@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+    <h1>{{ self.title }}</h1>
+
+    <div class="slick" data-slick='{"slidesToShow": {{ self.carousel_images.all|length }}, "slidesToScroll": {{ self.carousel_images.all|length }}}'>
+        {% for loop_cycle in self.carousel_images.all %}
+            {% image loop_cycle.carousel_image fill-900x400 as img %}
+            <img src="{{ img.url }}" alt="{{ img.alt }}">
+        {% endfor %}
+    </div>
+
+    <div>
+        {% for block in page.body %}
+            {% include_block block %}
+        {% endfor %}
+    </div> 
+{% endblock %}  
