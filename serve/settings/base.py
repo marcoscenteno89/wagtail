@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'flex',
     'search',
+    'storages',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -163,3 +164,11 @@ WAGTAIL_SITE_NAME = "serve"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+# CUSTOM SETTINGS
+# AWS_ACCESS_KEY_ID = 'AKIAWZ6LBWOHZKPWZQGT'
+# AWS_SECRET_ACCESS_KEY = 'FZsxAStBwoD6immKYPn9OjThIaMp11BDddT9L5rB'
+# AWS_STORAGE_BUCKET_NAME = 'elasticbeanstalk-us-west-2-468040397711'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFALUT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
