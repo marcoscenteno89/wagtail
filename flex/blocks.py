@@ -23,28 +23,28 @@ class RichtextBlock(blocks.RichTextBlock):
         label = 'Full RichText'
 
 
-class BannerBlock(blocks.StructBlock):
-    banner_title = models.CharField(max_length=100, blank=True, null=True)
-    banner_subtitle = models.CharField(max_length=100, blank=True, null=True)
-    banner_image = models.ForeignKey( 
-        "wagtailimages.Image",
-        null = True,
-        blank = True,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
-    banner_cta = models.ForeignKey(
-        "wagtailcore.Page",
-        null = True,
-        blank = True,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
+# class BannerBlock(blocks.StructBlock):
+#     banner_title = models.CharField(max_length=100, blank=True, null=True)
+#     banner_subtitle = models.CharField(max_length=100, blank=True, null=True)
+#     banner_image = models.ForeignKey( 
+#         "wagtailimages.Image",
+#         null = True,
+#         blank = True,
+#         on_delete = models.SET_NULL,
+#         related_name = "+"
+#     )
+#     banner_cta = models.ForeignKey(
+#         "wagtailcore.Page",
+#         null = True,
+#         blank = True,
+#         on_delete = models.SET_NULL,
+#         related_name = "+"
+#     )
 
-    class Meta:
-        template = 'inc/banner_block.html'
-        icon = 'edit'
-        label = 'Banner'
+#     class Meta:
+#         template = 'inc/banner_block.html'
+#         icon = 'edit'
+#         label = 'Banner'
 
 
 class SimpleRichtextBlock(blocks.RichTextBlock):
