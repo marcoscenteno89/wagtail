@@ -11,30 +11,23 @@ from . import blocks
 class FlexPage(Page):
     template = "pages/flex_page.html"
 
-    banner_title = models.CharField(max_length=100, blank=True, null=True)
-    banner_subtitle = RichTextField(features=["bold", "italic"], default="Demo Test")
-    banner_image = models.ForeignKey( 
-        "wagtailimages.Image",
-        null = True,
-        blank = True,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
-    banner_cta = models.ForeignKey(
-        "wagtailcore.Page",
-        null = True,
-        blank = True,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
-    content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel("banner_title"),
-            FieldPanel("banner_subtitle"),
-            ImageChooserPanel("banner_image"),
-            PageChooserPanel("banner_cta"),
-        ], heading='Banner Options'),
-    ]
+    # banner_title = models.CharField(max_length=100, blank=True, null=True)
+    # banner_subtitle = RichTextField(features=["bold", "italic"], default="Demo Test")
+    # banner_image = models.ForeignKey( 
+    #     "wagtailimages.Image",
+    #     null = True,
+    #     blank = True,
+    #     on_delete = models.SET_NULL,
+    #     related_name = "+"
+    # )
+    # banner_cta = models.ForeignKey(
+    #     "wagtailcore.Page",
+    #     null = True,
+    #     blank = True,
+    #     on_delete = models.SET_NULL,
+    #     related_name = "+"
+    # )
+
     body = StreamField(
         [
             ('title_and_text', blocks.TitleAndTextBlock()),
@@ -43,11 +36,19 @@ class FlexPage(Page):
             ('cards', blocks.CardBlock()),
             ('carousel', blocks.CarouselBlock()),
             ('button', blocks.ButtonBlock()),
+            ('banner', blocks.BannerBlock()),
         ],
         null=True,
         blank=True,
     )
+
     content_panels = Page.content_panels + [
+        # MultiFieldPanel([
+        #     FieldPanel("banner_title"),
+        #     FieldPanel("banner_subtitle"),
+        #     ImageChooserPanel("banner_image"),
+        #     PageChooserPanel("banner_cta"),
+        # ], heading='Banner Options'),
         MultiFieldPanel([
             InlinePanel('carousel_images', label='Image'),
         ], heading="Carousel Images"),
