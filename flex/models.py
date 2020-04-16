@@ -36,7 +36,6 @@ class FlexPage(Page):
             ('cards', blocks.CardBlock()),
             ('carousel', blocks.CarouselBlock()),
             ('button', blocks.ButtonBlock()),
-            # ('banner', blocks.BannerBlock()),
         ],
         null=True,
         blank=True,
