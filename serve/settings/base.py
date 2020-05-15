@@ -159,7 +159,7 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = "serve"
 
-ALLOWED_HOSTS = ['*.us-west-2.compute.amazonaws.com', 'localhost', '127.0.0.1'] 
+ALLOWED_HOSTS = ['ec2-18-237-74-123.us-west-2.compute.amazonaws.com', 'localhost', '127.0.0.1'] 
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
