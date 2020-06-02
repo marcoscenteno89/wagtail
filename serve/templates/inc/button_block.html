@@ -1,1 +1,6 @@
-<a href="{{url }}">Learn More</a>
+<button 
+{% if self.element_id %}id="{{ self.element_id }}" {% endif %}style="{% if self.padding %}padding:{{ self.padding }};{% endif %}{% if self.margin %}margin:{{ self.margin }};{% endif %}{% if self.background_color %}background-color:{{ self.background_color }};{% endif %}"
+class="btn btn-primary btn-lg {% if self.element_classes %} {{ self.element_id }} {% endif %}" 
+href="{{ self.url }}">
+    {{ self.label }}
+</button>

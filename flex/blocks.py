@@ -1,11 +1,32 @@
 from wagtail.core import blocks
 from django.db import models
-from wagtail.core.models import Orderable
+# from wagtail.core.models import Orderable
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel
 from wagtail.images.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
-from wagtail.images.edit_handlers import ImageChooserPanel
+# from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.fields import RichTextField
 
-class TitleAndTextBlock(blocks.StructBlock):
+
+class BlockSettings(blocks.StructBlock):
+    margin = blocks.CharBlock(required=False, help_text='Add Custom Margin',)
+    padding = blocks.CharBlock(required=False, help_text='Add Custom Padding')
+    background_color = blocks.CharBlock(required=False, help_text='Add Custom Background')
+    element_classes = blocks.CharBlock(required=False, help_text='Add Custom Classes')
+    element_id = blocks.CharBlock(required=False, help_text='Add Custom Element ID')
+    background_image = ImageChooserBlock(required=False)
+
+    MultiFieldPanel([
+        FieldPanel('margin'),
+        FieldPanel('padding'),
+        FieldPanel('background_color'),
+        FieldPanel('element_classes'),
+        FieldPanel('element_id'),
+        FieldPanel('background_image'),
+    ], heading='Custom Settings', classname='collapsible collapsed'),
+
+
+class TitleAndTextBlock(BlockSettings):
     title = blocks.CharBlock(required=True, help_text='Add your title')
     text = blocks.TextBlock(required=True, help_text="add additional text")
 
@@ -21,30 +42,6 @@ class RichtextBlock(blocks.RichTextBlock):
         template = 'inc/richtext_block.html'
         icon = 'edit'
         label = 'Full RichText'
-
-
-# class BannerBlock(blocks.StructBlock):
-#     banner_title = models.CharField(max_length=100, blank=True, null=True)
-#     banner_subtitle = models.CharField(max_length=100, blank=True, null=True)
-#     banner_image = models.ForeignKey( 
-#         "wagtailimages.Image",
-#         null = True,
-#         blank = True,
-#         on_delete = models.SET_NULL,
-#         related_name = "+"
-#     )
-#     banner_cta = models.ForeignKey(
-#         "wagtailcore.Page",
-#         null = True,
-#         blank = True,
-#         on_delete = models.SET_NULL,
-#         related_name = "+"
-#     )
-
-#     class Meta:
-#         template = 'inc/banner_block.html'
-#         icon = 'edit'
-#         label = 'Banner'
 
 
 class SimpleRichtextBlock(blocks.RichTextBlock):
@@ -63,38 +60,13 @@ class SimpleRichtextBlock(blocks.RichTextBlock):
         label = 'Simple RichText'
 
 
-class CardBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, help_text='Add your title')
-    cards = blocks.ListBlock(
-        blocks.StructBlock(
-            [
-                ('image', ImageChooserBlock(required=True)),
-                ('title', blocks.CharBlock(required=True, max_length=40)),
-                ('text', blocks.TextBlock(required=True, max_length=200)),
-                ('button_page', blocks.PageChooserBlock(required=False)),
-                ('button_url', blocks.URLBlock(required=False, help_text='this is a test')),
-            ]
-        )
-    )
-
-    class Meta:
-        template = 'inc/card_block.html'
-        icon = 'edit'
-        label = 'Cards'
-
-
 class CarouselBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, help_text='Add your title')
     items = blocks.ListBlock(
-        blocks.StructBlock(
-            [
-                ('image', ImageChooserBlock(required=True)),
-                ('title', blocks.CharBlock(required=True, max_length=40)),
-                ('text', blocks.TextBlock(required=True, max_length=200)),
-                ('button_page', blocks.PageChooserBlock(required=False)),
-                ('button_url', blocks.URLBlock(required=False, help_text='this is a test')),
-            ]
-        )
+        blocks.StructBlock([
+            ('image', ImageChooserBlock(required=True)),
+            ('text', blocks.TextBlock(required=False, max_length=300)),
+            ('button_url', blocks.URLBlock(required=False, help_text='Custom Url')),
+        ])
     )
 
     class Meta:
@@ -103,21 +75,11 @@ class CarouselBlock(blocks.StructBlock):
         label = 'Carousel'
 
 
-class CarouselImages(Orderable):
-    page = ParentalKey('flex.FlexPage', related_name='carousel_images')
-    carousel_image = models.ForeignKey( 
-        "wagtailimages.Image",
-        null = True,
-        blank = False,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
+class ButtonBlock(BlockSettings):
+    url = blocks.CharBlock( max_length=500, blank=True, )
+    label = blocks.CharBlock(required=False, help_text='Label')
 
-    panels = [
-        ImageChooserPanel('carousel_image')
-    ]
-
-
-class ButtonBlock(blocks.StructBlock):
-    button_page = blocks.PageChooserBlock(required=False, help_text="If selected, this url will be used")
-    button_url = blocks.URLBlock(required=False, help_text="If selected, this page will be used")
+    class Meta:
+        template = 'inc/button_block.html'
+        icon = 'edit'
+        label = 'Button'

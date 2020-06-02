@@ -1,0 +1,10 @@
+.social-menu li a {
+    display: flex;
+    align-items: center;
+}
+ i {
+    font-size: 2.5rem;
+}
+.social-menu .nav-link {
+    padding: 0 4px 0 0 !important;
+}
